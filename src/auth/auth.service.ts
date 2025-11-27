@@ -13,8 +13,6 @@ import { CreateUserDto } from 'src/users/dto/CreateUserDto';
 import { UsersRepository } from 'src/users/users.repository';
 import { Role } from './roles.enum';
 import { Request, Response } from 'express';
-import { ParamsDictionary } from 'express-serve-static-core';
-import { ParsedQs } from 'qs';
 import { JwtPayload } from 'src/interceptors/jwt-payload.interceptor';
 
 @Injectable()
@@ -170,10 +168,7 @@ export class AuthService {
     }
   }
 
-  async checkAuth(
-    req: Request<ParamsDictionary, any, any, ParsedQs, Record<string, any>>,
-    res: Response<any, Record<string, any>>,
-  ) {
+  async checkAuth(req: Request, res: Response) {
     try {
       const refreshToken = req.cookies['refreshToken'];
       if (!refreshToken) {

@@ -7,10 +7,12 @@ import {
   Post,
   UploadedFile,
   UseGuards,
+  UseInterceptors,
 } from '@nestjs/common';
 import { FileUploadService } from './file-upload.service';
 import { AuthGuard } from 'src/guards/auth.guard';
 import { ApiConsumes, ApiOperation, ApiParam, ApiTags } from '@nestjs/swagger';
+import { FileInterceptor } from '@nestjs/platform-express';
 
 @ApiTags('Files')
 @Controller('files')
@@ -22,7 +24,7 @@ export class FileUploadController {
   @ApiParam({ name: 'id', description: 'Id del producto' })
   @ApiConsumes('multipart/form-data')
   @UseGuards(AuthGuard)
-  // @UseInterceptors(FileInterceptor('imgUrl'))
+  @UseInterceptors(FileInterceptor('file'))
   async uploadImage(
     @Param('id') id: string,
     @UploadedFile(
