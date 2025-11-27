@@ -16,7 +16,6 @@ import { CreateUserDto } from 'src/users/dto/CreateUserDto';
 import { HideCredentialInterceptor } from 'src/interceptors/hide-credential.interceptor';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { Request, Response } from 'express';
-import { TokenDto } from './dto/TokenDto';
 import { CurrentUser } from 'src/decorators/current-user.decorator';
 import { AuthGuard } from 'src/guards/auth.guard';
 

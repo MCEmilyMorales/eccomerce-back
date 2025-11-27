@@ -107,7 +107,6 @@ export class AuthService {
 
   private setRefreshCookie(res: Response, refreshToken: string) {
     const isProd = process.env.NODE_ENV === 'production';
-    const dominio = process.env.DOMAIN_FRONT_BACK;
 
     try {
       const cookie = res.cookie('refreshToken', refreshToken, {
@@ -116,7 +115,6 @@ export class AuthService {
         sameSite: isProd ? 'none' : 'lax',
         maxAge: 7 * 24 * 60 * 60 * 1000, // en milisegundos
         path: '/',
-        domain: isProd ? dominio : undefined,
       });
       return cookie;
     } catch (error) {
