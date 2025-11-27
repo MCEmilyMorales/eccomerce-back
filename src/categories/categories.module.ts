@@ -5,7 +5,6 @@ import { CategoriesService } from './categories.service';
 import { CategoriesController } from './categories.controller';
 import { CategoriesRepository } from './categories.repository';
 import { Category } from './categories.entity';
-import { Product } from 'src/products/products.entity';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Category])],

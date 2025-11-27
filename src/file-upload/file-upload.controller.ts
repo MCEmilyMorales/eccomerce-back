@@ -7,18 +7,10 @@ import {
   Post,
   UploadedFile,
   UseGuards,
-  UseInterceptors,
 } from '@nestjs/common';
-import { FileInterceptor } from '@nestjs/platform-express';
-import { FileUploadService } from './fileUpload.service';
+import { FileUploadService } from './file-upload.service';
 import { AuthGuard } from 'src/guards/auth.guard';
-import {
-  ApiBearerAuth,
-  ApiConsumes,
-  ApiOperation,
-  ApiParam,
-  ApiTags,
-} from '@nestjs/swagger';
+import { ApiConsumes, ApiOperation, ApiParam, ApiTags } from '@nestjs/swagger';
 
 @ApiTags('Files')
 @Controller('files')

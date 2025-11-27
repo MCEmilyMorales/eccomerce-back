@@ -1,6 +1,5 @@
 import { Injectable } from '@nestjs/common';
 import { CategoriesRepository } from './categories.repository';
-import { Category } from './categories.entity';
 
 @Injectable()
 export class CategoriesService {

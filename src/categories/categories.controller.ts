@@ -2,10 +2,11 @@ import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
 import { CategoriesService } from './categories.service';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { AuthGuard } from 'src/guards/auth.guard';
-import { CategoryDto } from './dto/categoryDto';
+
 import { Roles } from 'src/decorators/roles.decorator';
 import { Role } from 'src/auth/roles.enum';
 import { RolesGuard } from 'src/guards/roles.guard';
+import { CategoryDto } from './dto/categoryDto';
 
 @ApiTags('Categories')
 @Controller('categories')
