@@ -35,6 +35,9 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, swaggerConfig);
   SwaggerModule.setup('api', app, document);
   //puerto en el que se levanta el back
-  await app.listen(process.env.PORT);
+  const port = process.env.PORT || 3000;
+
+  await app.listen(port);
+  console.log(`🚀 App corriendo en puerto ${port}`);
 }
 bootstrap();
