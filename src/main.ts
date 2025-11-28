@@ -14,14 +14,15 @@ async function bootstrap() {
   const host = process.env.NODE_ENV === 'production';
   let origen = '';
   if (host) {
-    origen = process.env.PORT_FRONT;
+    origen = process.env.FRONTEND_ORIGIN;
   } else {
     origen = 'http://localhost:3000';
   }
   app.enableCors({
     origin: [origen],
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
   });
   //convertir datos del cliente en json
   app.useGlobalPipes(new ValidationPipe({ whitelist: true }));
