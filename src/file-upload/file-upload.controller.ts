@@ -13,6 +13,7 @@ import { FileUploadService } from './file-upload.service';
 import { AuthGuard } from 'src/guards/auth.guard';
 import { ApiConsumes, ApiOperation, ApiParam, ApiTags } from '@nestjs/swagger';
 import { FileInterceptor } from '@nestjs/platform-express';
+import { Express } from 'express';
 
 @ApiTags('Files')
 @Controller('files')
