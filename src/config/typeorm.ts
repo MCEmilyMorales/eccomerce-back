@@ -8,7 +8,7 @@ const config = {
   type: 'postgres',
   database: process.env.DATA_BASE,
   host: process.env.HOST,
-  port: process.env.PORT as unknown as number,
+  port: process.env.DB_PORT as unknown as number,
   password: process.env.PASSWORD,
   username: process.env.USER,
   autoLoadEntities: true,
