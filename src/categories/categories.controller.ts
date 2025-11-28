@@ -6,7 +6,7 @@ import { AuthGuard } from 'src/guards/auth.guard';
 import { Roles } from 'src/decorators/roles.decorator';
 import { Role } from 'src/auth/roles.enum';
 import { RolesGuard } from 'src/guards/roles.guard';
-import { CategoryDto } from './dto/categoryDto';
+import { CategoryDto } from './dto/category.dto';
 
 @ApiTags('Categories')
 @Controller('categories')
