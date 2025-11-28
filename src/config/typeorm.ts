@@ -13,6 +13,9 @@ const config = {
   username: process.env.USER,
   autoLoadEntities: true,
   synchronize: true,
+  ssl: {
+    rejectUnauthorized: false, // importante en Render
+  },
 };
 export default registerAs('typeorm', () => config); //permite tener una clave con el nombre de typeORM e importar el objeto config
 export const connectionSource = new DataSource(config as DataSourceOptions);
