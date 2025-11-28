@@ -31,7 +31,10 @@ export class ProductsController {
   @ApiOperation({
     description: 'USER && ADMIN - Consigue un array de productos de la DB.',
   })
+  @UseGuards(AuthGuard)
   getProducts() {
+    console.log('llego a este get products');
+
     return this.productsService.getProducts();
   }
 

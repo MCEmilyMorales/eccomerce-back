@@ -18,8 +18,10 @@ async function bootstrap() {
   } else {
     origen = 'http://localhost:3000';
   }
+  console.log('que valor tiene origin? d main', origen);
+
   app.enableCors({
-    origin: [origen],
+    origin: origen,
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization'],
