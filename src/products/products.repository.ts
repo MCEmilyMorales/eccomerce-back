@@ -8,9 +8,7 @@ import {
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
-import { Products } from './productsInterfacePrueba/productsInterfacePrueba';
 import { Product } from './products.entity';
-import * as data from '../utils/data.json';
 import { Category } from 'src/categories/categories.entity';
 
 @Injectable()
@@ -54,7 +52,6 @@ export class ProductsRepository {
       productDto.category = category.id;
 
       const product = this.productRepository.create(productDto);
-      console.log('product', product);
 
       const productNew = await this.productRepository.save(product);
       if (!productNew.values) {
@@ -104,7 +101,3 @@ export class ProductsRepository {
     }
   }
 }
-
-// async addProducts(products: Product[]):Promise<Product[]>{
-//   return await this.productRepository.save(products)
-// }

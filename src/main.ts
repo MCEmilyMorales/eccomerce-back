@@ -18,7 +18,6 @@ async function bootstrap() {
   } else {
     origen = 'http://localhost:3000';
   }
-  console.log('que valor tiene origin? d main', origen);
 
   app.enableCors({
     origin: origen,
@@ -38,7 +37,7 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, swaggerConfig);
   SwaggerModule.setup('api', app, document);
   //puerto en el que se levanta el back
-  const port = process.env.PORT || 3000;
+  const port = process.env.PORT || 4000;
 
   await app.listen(port);
   console.log(`🚀 App corriendo en puerto ${port}`);

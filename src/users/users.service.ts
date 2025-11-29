@@ -1,24 +1,24 @@
-// import { Inject, Injectable } from "@nestjs/common";
-// import { UsersRepository } from "./users.repository";
-// import { Users } from "./usersInterfacePrueba/usersInterfacePrueba";
+import { Injectable } from '@nestjs/common';
 
-// @Injectable()
-// export class UsersService {
-//   constructor(private usersRepository: UsersRepository) {}
-//   getUsers() {
-//     return this.usersRepository.getUsers();
-//   }
+import { UsersRepository } from './users.repository';
 
-  // getUserId(id: number) {
-  //   return this.usersRepository.getUserId(id);
-  // }
-  // postUserId(id: number) {
-  //   return this.usersRepository.postUserId(id);
-  // }
-  // putUserUpdate(id,user) {
-  //   return this.usersRepository.putUserUpdate(id, user)
-  // }
-  // deleteUserDelete(id){
-  //   return this.usersRepository.deleteUserDelete(id)
-  // }
-// }
+@Injectable()
+export class UsersService {
+  constructor(private readonly usersRepository: UsersRepository) {}
+
+  getUsers() {
+    return this.usersRepository.getUsers();
+  }
+
+  getUserId(userId: string) {
+    return this.usersRepository.getUserId(userId);
+  }
+
+  async putUserUpdate(id: string, newUser) {
+    return await this.usersRepository.putUserUpdate(id, newUser);
+  }
+
+  async deleteUserDelete(id: string) {
+    return await this.usersRepository.deleteUserDelete(id);
+  }
+}

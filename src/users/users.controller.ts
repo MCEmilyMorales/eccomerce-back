@@ -10,19 +10,19 @@ import {
 } from '@nestjs/common';
 
 import { HideCredentialInterceptor } from 'src/interceptors/hide-credential.interceptor';
-import { UsersDbService } from './usersDb.service';
 import { ActualizarUserDto } from './dto/CreateUserDto';
 import { AuthGuard } from 'src/guards/auth.guard';
 import { Roles } from 'src/decorators/roles.decorator';
 import { Role } from 'src/auth/roles.enum';
 import { RolesGuard } from 'src/guards/roles.guard';
-import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { CurrentUser } from 'src/decorators/current-user.decorator';
+import { UsersService } from './users.service';
 
 @ApiTags('Users')
 @Controller('users')
 export class UsersController {
-  constructor(private readonly usersDbService: UsersDbService) {}
+  constructor(private readonly userService: UsersService) {}
 
   //?Debe acceder solo el administrador
   @Get()
@@ -33,7 +33,7 @@ export class UsersController {
   @UseGuards(AuthGuard, RolesGuard)
   @UseInterceptors(HideCredentialInterceptor)
   getUsers() {
-    return this.usersDbService.getUsers();
+    return this.userService.getUsers();
   }
 
   @Get('get-according-to-token')
@@ -45,7 +45,7 @@ export class UsersController {
   @UseGuards(AuthGuard, RolesGuard)
   @UseInterceptors(HideCredentialInterceptor)
   getUserId(@CurrentUser('id') id: string) {
-    return this.usersDbService.getUserId(id);
+    return this.userService.getUserId(id);
   }
 
   @Put('update-according-to-token')
@@ -59,7 +59,7 @@ export class UsersController {
     @CurrentUser('id', ParseUUIDPipe) id: string,
     @Body() newUser: ActualizarUserDto,
   ) {
-    return await this.usersDbService.putUserUpdate(id, newUser);
+    return await this.userService.putUserUpdate(id, newUser);
   }
 
   @Delete('delete-according-to-token')
@@ -70,6 +70,6 @@ export class UsersController {
   @Roles(Role.Admin, Role.User)
   @UseGuards(AuthGuard, RolesGuard)
   async deleteUserDelete(@CurrentUser('id', ParseUUIDPipe) id: string) {
-    return await this.usersDbService.deleteUserDelete(id);
+    return await this.userService.deleteUserDelete(id);
   }
 }
