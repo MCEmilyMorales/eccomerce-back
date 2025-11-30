@@ -11,7 +11,13 @@ import {
 } from '@nestjs/common';
 import { FileUploadService } from './file-upload.service';
 import { AuthGuard } from 'src/guards/auth.guard';
-import { ApiConsumes, ApiOperation, ApiParam, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBody,
+  ApiConsumes,
+  ApiOperation,
+  ApiParam,
+  ApiTags,
+} from '@nestjs/swagger';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { Express } from 'express';
 
@@ -24,6 +30,17 @@ export class FileUploadController {
   @ApiOperation({ description: 'Carga la imagen segun el ID del producto.' })
   @ApiParam({ name: 'id', description: 'Id del producto' })
   @ApiConsumes('multipart/form-data')
+  @ApiBody({
+    schema: {
+      type: 'object',
+      properties: {
+        file: {
+          type: 'string',
+          format: 'binary',
+        },
+      },
+    },
+  })
   @UseGuards(AuthGuard)
   @UseInterceptors(FileInterceptor('file'))
   async uploadImage(

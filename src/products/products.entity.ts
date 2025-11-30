@@ -1,7 +1,14 @@
-import { Category } from "src/categories/categories.entity";
-import { OrderDetails } from "src/orderDetails/orderDetails.entity";
-import { Column, Entity, JoinTable, ManyToMany, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
-import { v4 as uuid } from 'uuid'
+import { Category } from 'src/categories/categories.entity';
+import { OrderDetails } from 'src/orderDetails/orderDetails.entity';
+import {
+  Column,
+  Entity,
+  JoinTable,
+  ManyToMany,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
+import { v4 as uuid } from 'uuid';
 
 @Entity({ name: 'products' })
 export class Product {
@@ -28,5 +35,5 @@ export class Product {
   orderDetails_id: OrderDetails[];
 
   @ManyToOne(() => Category, (category) => category.products)
-  category_id: Category;
+  category: Category;
 }

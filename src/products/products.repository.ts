@@ -10,6 +10,7 @@ import { Repository } from 'typeorm';
 
 import { Product } from './products.entity';
 import { Category } from 'src/categories/categories.entity';
+import { ProductDto } from './dto/productsDto';
 
 @Injectable()
 export class ProductsRepository {
@@ -37,7 +38,22 @@ export class ProductsRepository {
     }
   }
 
-  async addProduct(productDto) {
+  async getProductName(name: string) {
+    try {
+      const producto = await this.productRepository.findOneBy({ name: name });
+      if (!producto) {
+        throw new NotFoundException('Producto no encontrado.');
+      }
+      return producto;
+    } catch (error) {
+      if (error instanceof HttpException) {
+        throw error;
+      }
+      throw new InternalServerErrorException();
+    }
+  }
+
+  async addProduct(productDto: ProductDto) {
     try {
       const categories = await this.categoriesRepository.find();
 
@@ -48,21 +64,29 @@ export class ProductsRepository {
       if (!category) {
         throw new NotFoundException(`Category not found`);
       }
-      //cambiar el datos del nombre al id
-      productDto.category = category.id;
+      //verificar de que NO exista el nombre del producto
+      const productExist = await this.productRepository.findOneBy({
+        name: productDto.name,
+      });
 
-      const product = this.productRepository.create(productDto);
+      if (productExist) {
+        throw new ConflictException('Ese producto ya existe.');
+      }
+      //cambiar el dato de la categoria
+      const datos = { ...productDto, category };
+
+      const product = this.productRepository.create(datos);
 
       const productNew = await this.productRepository.save(product);
-      if (!productNew.values) {
-        throw new ConflictException(
-          `Category not found: ${productDto.category}`,
-        );
+
+      if (!productNew) {
+        throw new ConflictException(`Error al crear el producto.`);
       }
-      console.log('productNew', productNew);
 
       return productNew;
     } catch (error: unknown) {
+      console.error(error);
+
       if (error instanceof HttpException) {
         throw error;
       }

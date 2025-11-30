@@ -24,22 +24,30 @@ export class ProductsController {
 
   @Get()
   @ApiOperation({
-    description: 'USER && ADMIN - Consigue un array de productos de la DB.',
+    description:
+      'USER && ADMIN - Consigue un array de productos de la DB.- Necesita token-cookie',
   })
   @UseGuards(AuthGuard)
   getProducts() {
-    console.log('llego a este get products');
-
     return this.productsService.getProducts();
   }
 
   @Get(':id')
   @ApiResponse({
     description:
-      'USER && ADMIN - Consigue los datos del productos segun el ID.',
+      'USER && ADMIN - Consigue los datos del productos segun el ID.- Necesita token-cookie',
   })
   getProductsId(@Param('id', ParseUUIDPipe) id: string) {
     return this.productsService.getProductId(id);
+  }
+
+  @Get('name/:name')
+  @ApiResponse({
+    description:
+      'USER && ADMIN - Consigue los datos del productos segun el nombre del producto.- Necesita token-cookie',
+  })
+  async getProductName(@Param('name') name: string) {
+    return await this.productsService.getProductName(name);
   }
 
   @Post('seeder')
@@ -61,7 +69,7 @@ export class ProductsController {
   @UseGuards(AuthGuard, RolesGuard)
   getProductUpdate(
     @Param('id', ParseUUIDPipe) id: string,
-    @Body() newData: UpdateProduct,
+    @Body() newData: Partial<UpdateProduct>,
   ) {
     return this.productsService.putProducto(id, newData);
   }

@@ -4,18 +4,33 @@ import { registerAs } from '@nestjs/config';
 
 dotenvConfig({ path: '.env' });
 
-const config = {
-  type: 'postgres',
-  database: process.env.DATA_BASE,
-  host: process.env.HOST,
-  port: process.env.DB_PORT as unknown as number,
-  password: process.env.PASSWORD,
-  username: process.env.USER,
-  autoLoadEntities: true,
-  synchronize: true,
-  ssl: {
-    rejectUnauthorized: false, // importante en Render
-  },
-};
+let config = {};
+if (process.env.NODE_ENV === 'production') {
+  config = {
+    type: 'postgres',
+    database: process.env.DATA_BASE,
+    host: process.env.HOST,
+    port: process.env.DB_PORT as unknown as number,
+    password: process.env.PASSWORD,
+    username: process.env.USER,
+    autoLoadEntities: true,
+    synchronize: true,
+    ssl: {
+      rejectUnauthorized: false, // importante en Render
+    },
+  };
+}
+if (process.env.NODE_ENV === 'local') {
+  config = {
+    type: 'postgres',
+    database: process.env.DATA_BASE,
+    host: process.env.HOST,
+    port: process.env.DB_PORT as unknown as number,
+    password: process.env.PASSWORD,
+    username: process.env.USER,
+    autoLoadEntities: true,
+    synchronize: true,
+  };
+}
 export default registerAs('typeorm', () => config); //permite tener una clave con el nombre de typeORM e importar el objeto config
 export const connectionSource = new DataSource(config as DataSourceOptions);

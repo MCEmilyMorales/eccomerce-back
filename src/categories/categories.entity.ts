@@ -10,6 +10,6 @@ export class Category {
   @Column({ type: 'varchar', length: 50, nullable: false, unique: true })
   name: string;
 
-  @OneToMany(() => Product, (product) => product.category_id)
+  @OneToMany(() => Product, (product) => product.category)
   products: Product[];
 }

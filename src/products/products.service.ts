@@ -13,6 +13,10 @@ export class ProductsService {
     return this.productsRepository.getProductId(id);
   }
 
+  async getProductName(name: string) {
+    return await this.productsRepository.getProductName(name);
+  }
+
   async addProduct(productDto) {
     return await this.productsRepository.addProduct(productDto);
   }
