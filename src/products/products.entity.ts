@@ -27,7 +27,7 @@ export class Product {
   @Column({ type: 'int', nullable: false })
   stock: number;
 
-  @Column({ type: 'varchar', default: 'img#' })
+  @Column({ type: 'varchar', default: '/' })
   imgUrl: string;
 
   @ManyToMany(() => OrderDetails, (orderDetails) => orderDetails.products_id)
