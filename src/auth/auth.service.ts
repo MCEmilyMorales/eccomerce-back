@@ -107,19 +107,13 @@ export class AuthService {
     const isProd = process.env.NODE_ENV === 'production';
 
     try {
-      const cookie = res
-        .cookie('refreshToken', refreshToken, {
-          httpOnly: true,
-          secure: isProd,
-          sameSite: isProd ? 'none' : 'lax',
-          maxAge: 7 * 24 * 60 * 60 * 1000, // en milisegundos
-          path: '/',
-        })
-        .cookie('isLoggedIn', 'true', {
-          secure: isProd,
-          sameSite: isProd ? 'none' : 'lax',
-          path: '/',
-        });
+      const cookie = res.cookie('refreshToken', refreshToken, {
+        httpOnly: true,
+        secure: isProd,
+        sameSite: isProd ? 'none' : 'lax',
+        maxAge: 7 * 24 * 60 * 60 * 1000, // en milisegundos
+        path: '/',
+      });
       return cookie;
     } catch (error) {
       throw new UnauthorizedException('Refresh token expirado o inválido');
@@ -162,18 +156,12 @@ export class AuthService {
   }> {
     const isProd = process.env.NODE_ENV === 'production';
     try {
-      const cook = res
-        .clearCookie('refreshToken', {
-          httpOnly: true,
-          secure: isProd,
-          sameSite: isProd ? 'none' : 'lax',
-          path: '/',
-        })
-        .clearCookie('isLoggedIn', {
-          secure: isProd,
-          sameSite: isProd ? 'none' : 'lax',
-          path: '/',
-        });
+      const cook = res.clearCookie('refreshToken', {
+        httpOnly: true,
+        secure: isProd,
+        sameSite: isProd ? 'none' : 'lax',
+        path: '/',
+      });
       return { message: 'Sesion cerrada correctamente' };
     } catch (error) {
       throw new InternalServerErrorException(error);
