@@ -28,8 +28,10 @@ export class ProductsController {
       'USER && ADMIN - Consigue un array de productos de la DB.- Necesita token-cookie',
   })
   @UseGuards(AuthGuard)
-  getProducts() {
-    return this.productsService.getProducts();
+  async getProducts() {
+    console.log('♦, llego a conseguir productos');
+
+    return await this.productsService.getProducts();
   }
 
   @Get(':id')

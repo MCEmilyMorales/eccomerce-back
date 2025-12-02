@@ -5,8 +5,8 @@ import { ProductsRepository } from './products.repository';
 export class ProductsService {
   constructor(private readonly productsRepository: ProductsRepository) {}
 
-  getProducts() {
-    return this.productsRepository.getProducts();
+  async getProducts() {
+    return await this.productsRepository.getProducts();
   }
 
   getProductId(id: string) {
